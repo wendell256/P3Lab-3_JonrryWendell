@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip> 
 #include <cmath>
 
 using namespace std;
@@ -12,6 +13,8 @@ void ejercicio2();
 void ejercicio3();
 
 double factorial(double num);
+
+bool verpar(int num);
 
 int main(){
   char resp1='y';
@@ -37,6 +40,7 @@ int main(){
     cin>>resp1;
     while(resp1 != 'y' && resp1 != 'Y' && resp1 != 'N' && resp1 != 'n'){
       cout<<"Error, valor no valido. Reiniciar?y/n"<<endl;
+      cin>>resp1;
     }//fin while verificar respuesta
   }//fin while repetir programa
 
@@ -83,17 +87,17 @@ void ejercicio1(){
       if(respuestax1 != 0){
         respuestax1*=-1;
       }
-      cout<<"(x + "<<respuestax1<< ") (";
+      cout<<setprecision(3)<<"(x + "<<respuestax1<< ") (";
     }else{
-      cout<<"(x  "<<respuestax1<< ") (";
+      cout<<setprecision(3)<<"(x - "<<respuestax1<<") (";
     }
     if(respuestax2 <= 0){
       if(respuestax2 != 0){
         respuestax2*=-1;
       }
-      cout<<"x + "<<respuestax2<<")"<<endl;
+      cout<<setprecision(3)<<"x + "<<respuestax2<<")"<<endl;
     }else{
-      cout<<"x  "<<respuestax2<<")"<<endl;
+      cout<<setprecision(3)<<"x - "<<respuestax2<<")"<<endl;
     }
         
   }
@@ -132,5 +136,32 @@ void ejercicio2(){
 }
 
 void ejercicio3(){
+  int cantidad=0,espacios = 0;
 
+  cout<< "ingrese cantidad de lineas:"<<endl;
+  cin>> cantidad;
+  cout<<setw(cantidad + 4)<<" o "<<setw(cantidad)<<endl;
+  for(int i=1; i<=cantidad;i++){
+    espacios = (cantidad-i+4)*2;
+    cout<<setw((espacios)/2);
+    for(int j=0; j<i;j++){
+      int resp = factorial(i)/(factorial(j)*factorial(i-j));
+      if(verpar(resp)){
+        cout<<"+ ";
+      }else{
+        cout<<"o ";
+      }
+    }
+    cout<<"o "<<endl;
+     
+  }
 }
+
+bool verpar(int resp){
+  if(resp%2==0){
+    return true;
+  }else{
+    return false;
+  }
+}
+
