@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -9,6 +10,8 @@ int menu();
 void ejercicio2();
 
 void ejercicio3();
+
+double factorial(double num);
 
 int main(){
   char resp1='y';
@@ -56,8 +59,11 @@ int menu(){
 }
 
 void ejercicio1(){
-  double* nums = new int[3];//numeros que van con x²,x¹ y el numero sin x
-  
+  double* nums = new double[3];//numeros que van con x²,x¹ y el numero sin x
+  //formula cuadratica: (x = -4 +/- sqrt(b² - 4ac))/2a
+  double raiz = 0;//evalua lo que va dentro de la raiz para ver si la respuesta es imaginaria
+
+  double respuestax1 = 0, respuestax2 = 0;
   cout<< "Ingrese el numero que va con x²:"<<endl;
   cin>> nums[0];
   cout<< "Ingrese el numero que va con x:"<<endl;
@@ -65,6 +71,66 @@ void ejercicio1(){
   cout<< "Ingrese el numero que va sin x:"<<endl;
   cin>> nums[2];
   
+  raiz = pow(nums[1],2) - 4*nums[0]*nums[2];
+
+  if(raiz<0){
+    cout<<"Error. La respuesta es un numero imaginario."<<endl;
+  }else{
+    respuestax1 = ((-nums[1]-sqrt(raiz))/(2*nums[0]));
+    respuestax2 = ((-nums[1]+sqrt(raiz))/(2*nums[0]));
+    cout<<"Funcion factorizada:"<<endl;
+    if(respuestax1 <= 0){
+      if(respuestax1 != 0){
+        respuestax1*=-1;
+      }
+      cout<<"(x + "<<respuestax1<< ") (";
+    }else{
+      cout<<"(x  "<<respuestax1<< ") (";
+    }
+    if(respuestax2 <= 0){
+      if(respuestax2 != 0){
+        respuestax2*=-1;
+      }
+      cout<<"x + "<<respuestax2<<")"<<endl;
+    }else{
+      cout<<"x  "<<respuestax2<<")"<<endl;
+    }
+        
+  }
+  delete[] nums;
+}
+
+double factorial(double num){
+  double resp=1;
+  if(num==0){
+    return resp;
+  }else{
+    for(int i=1;i<=num;i++){
+      resp*=i;
+    }
+    return resp;
+  }
+}
+
+void ejercicio2(){
+  double angulo=0,angulorad=0,respsin=0,respcos=0;
   
+  cout<<"Ingrese el angulo en grados:"<<endl;
+  cin>> angulo;
+  //convertir grados a radian
+  angulorad = angulo *(M_PI/180);
+  
+  //for de sin
+  for(int i=0;i<150;i++){
+    double formulasin = ((pow(-1,i))/factorial(2*i+1))*pow(angulorad,2*i+1);
+    double formulacos = ((pow(-1,i))/factorial(2*i))*pow(angulorad,2*i);
+    respsin += formulasin;
+    respcos += formulacos;
+  }
+  cout<<"sin("<<angulo<<") = "<<respsin<<endl;
+  cout<<"cos("<<angulo<<") = "<<respcos<<endl;
+}
+
+void ejercicio3(){
 
 }
